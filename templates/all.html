@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    {% load mathfilters %} {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="{% static 'app.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript">
+      const listOfsale = {{ obj.list_sale }}
+      const total_sale = {{ int.total }}
+      const bento_sold = {{ obj.bento_sold }}
+
+      const label = {{ tag|safe }}
+      const last_bento_sold = {{ obj.last_bento_sold }}
+    </script>
+    <title>TTC STORE</title>
+  </head>
+  <body class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+    <h1 class="text-center p-4">
+      <a href="{% url 'all' %}">THE TTC STORE</a>
+    </h1>
+
+    <br />
+    <br />
+    <div class="grid gap-8 grid-cols-2 lg:grid-cols-6 justify-items-center ...">
+      <div class="w-40 h-40 bg-blue-200 text-center">
+        注文個数
+        <p class="text-center text-3xl p-8">{{ int.order }}</p>
+      </div>
+      <div class="w-40 h-40 bg-blue-200 text-center">
+        販売個数
+        <p class="text-center text-3xl p-8">{{ int.sold }}</p>
+      </div>
+      <div class="w-40 h-40 bg-blue-200 text-center">
+        午前売り上げ
+        <p class="text-center text-3xl p-8">{{ int.morning }}</p>
+      </div>
+      <div class="w-40 h-40 bg-blue-200 text-center">
+        午後売り上げ
+        <p class="text-center text-3xl p-8">{{ int.noon }}</p>
+      </div>
+      <div
+        class="w-40 col-span-2 lg:col-span-1 lg:w-40 h-40 bg-blue-200 text-center"
+      >
+        本日の売り上げ
+        <p class="text-center text-3xl p-8">
+          {{ int.total }}
+        </p>
+      </div>
+      <div>
+        <form action="" method="get">
+          <label for="created_at">選択してください</label>
+          <select name="created_at" id="">
+            <option value="01">1月</option>
+            <option value="02">2月</option>
+            <option value="03">3月</option>
+            <option value="04">4月</option>
+            <option value="05">5月</option>
+          </select>
+
+          <br />
+          <button
+            type="submit"
+            class="mt-12 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+          >
+            選択月変更
+          </button>
+        </form>
+        <a class="py-2 text-white" href="/logout/">
+          Logout
+        </a>
+      </div>
+    </div>
+
+    <div class="lg:grid lg:grid-cols-2 lg:gap-24">
+      <div>
+        <div id="" class="lg:m-32 bg-blue-50">
+          <p class="text-center my-8">売り上げ</p>
+          <canvas class="mb-24" id="myChart1" width="400" height="400"></canvas>
+        </div>
+        <div
+          class="table grid grid-cols-5 border border-red-500 mb-24 gap-4 text-center m-4 p-4"
+        >
+          <h2 class="col-span-5">売り上げ</h2>
+          <p class="bg-slate-100">日付</p>
+          <p class="bg-slate-100">名前</p>
+          <p class="bg-slate-100">AM</p>
+          <p class="bg-slate-100">PM</p>
+          <p class="bg-slate-100">一日</p>
+          {% for i in all %}
+
+          <p class="border-b-2">{{ i.created_at.date }}</p>
+          <p class="border-b-2">{{ i.user }}</p>
+          <p class="border-b-2">{{ i.morning_sale }}</p>
+          <p class="border-b-2">{{ i.noon_sale }}</p>
+          <p class="border-b-2">{{ i.morning_sale|add:i.noon_sale }}</p>
+          {% endfor %}
+        </div>
+      </div>
+      <div>
+        <div class="lg:m-32 bg-blue-50">
+          <p class="text-center">販売個数</p>
+          <canvas id="myChart" width="400" height="400"></canvas>
+        </div>
+        <div
+          class="table grid grid-cols-5 border border-red-500 mb-24 gap-4 text-center m-4 p-4 mt-40"
+        >
+          <h2 class="col-span-5">弁当</h2>
+
+          <p class="bg-slate-200">日付</p>
+          <p class="bg-slate-200">名前</p>
+          <p class="bg-slate-200">注文数</p>
+          <p class="bg-slate-200">販売数</p>
+          <p class="bg-slate-200">余り</p>
+          {% for i in all %}
+
+          <p class="border-b-2">{{ i.created_at.date }}</p>
+          <p class="border-b-2">{{ i.user }}</p>
+          <p class="border-b-2">{{ i.order_bento }}</p>
+          <p class="border-b-2">{{ i.sold_bento }}</p>
+          <p class="border-b-2">{{ i.order_bento|sub:i.sold_bento }}</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

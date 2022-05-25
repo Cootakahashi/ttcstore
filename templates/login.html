@@ -1,0 +1,51 @@
+{% block head %} {% load static %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Login / TTC STORE</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- <link rel="stylesheet" href="{% static 'login.css' %}" /> -->
+{% endblock %} {% block main %}
+<div class="login-item hidde">
+  <h1 class="text-3xl p-12 font-semibold">
+    {% if 'login' in request.path %} Login {% endif %}
+  </h1>
+
+  <div class="md:flex justify-center mb-16">
+    <div class="text-center py-4 md:w-1/2">
+      必要な項目を入力してください
+    </div>
+    <div class="py-4 md:w-1/2">
+      <div class="form-section w-10/12 mx-auto md:max-w-md">
+        <form action="" method="POST">
+          {% csrf_token %}
+          <div class="mb-8">
+            <label for="" class="text-sm block">ユーザーネーム</label>
+            <input
+              name="username"
+              class="placeholder-gray-500 placeholder-opacity-30 border-b w-full py-2 focus:outline-none focus:border-b-2 bocus:border-blue-500"
+              placeholder="ユーザーネーム"
+              type="text"
+            />
+          </div>
+
+          <div class="mb-8">
+            <label for="" class="text-sm block">パスワード</label>
+            <input
+              type="password"
+              name="password"
+              class="placeholder-gray-500 placeholder-opacity-30 border-b w-full py-2 focus:outline-none focus:border-b-2 bocus:border-blue-500"
+              placeholder="パスワード"
+            />
+          </div>
+          <button
+            class="bg-green-500 text-white font-semibold py-2 px-8 rounded-md focus:outline-none"
+          >
+            ログイン
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}
+</div>

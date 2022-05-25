@@ -1,0 +1,14 @@
+{
+  "folders": [
+	{
+		"path": ".."
+	},
+	{
+		"path": "../../tailwind/section-2"
+	}
+],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "ttc",
+    "git.ignoreLimitWarning": true
+  }
+}

@@ -1,0 +1,87 @@
+{% block head %} {% load static %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Login / TTC STORE</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- <link rel="stylesheet" href="{% static 'login.css' %}" /> -->
+{% endblock %} {% block main %}
+<div class="login-item hidde">
+  <h1 class="text-3xl p-12 font-semibold">
+    {% if 'login' in request.path %}本日の報告 {% endif %}
+  </h1>
+
+  <div class="md:flex justify-center mb-16">
+    <div class="text-center py-4 md:w-1/2">
+      本日の売店情報を入力してください
+    </div>
+    <div class="py-4 md:w-1/2">
+      <div class="form-section w-10/12 mx-auto md:max-w-md">
+        <form action="{% url 'post' %}" method="POST">
+          {% csrf_token %}
+          <div class="mb-8">
+            <label for="" class="text-sm block">AM:売り上げ</label>
+            <input
+              name="morning_sale"
+              class="placeholder-gray-500 placeholder-opacity-30 border-b w-full py-2 focus:outline-none focus:border-b-2 bocus:border-blue-500"
+              placeholder="AM:売り上げ"
+              type="text"
+            />
+          </div>
+
+          <div class="mb-8">
+            <label for="" class="text-sm block">PM:売り上げ</label>
+            <input
+              type="number"
+              name="noon_sale"
+              class="placeholder-gray-500 placeholder-opacity-30 border-b w-full py-2 focus:outline-none focus:border-b-2 bocus:border-blue-500"
+              placeholder="PM:売り上げ"
+            />
+          </div>
+          <div class="mb-8">
+            <label for="" class="text-sm block">弁当注文数</label>
+            <input
+              type="number"
+              name="order_bento"
+              class="placeholder-gray-500 placeholder-opacity-30 border-b w-full py-2 focus:outline-none focus:border-b-2 bocus:border-blue-500"
+              placeholder="弁当注文数"
+            />
+          </div>
+          <div class="mb-8">
+            <label for="" class="text-sm block">弁当販売数</label>
+            <input
+              type="number"
+              name="sold_bento"
+              class="placeholder-gray-500 placeholder-opacity-30 border-b w-full py-2 focus:outline-none focus:border-b-2 bocus:border-blue-500"
+              placeholder="弁当販売数"
+            />
+          </div>
+          <div class="mb-8">
+            <label for="" class="text-sm block">余った弁当</label>
+            <input
+              type="number"
+              name="be_left"
+              class="placeholder-gray-500 placeholder-opacity-30 border-b w-full py-2 focus:outline-none focus:border-b-2 bocus:border-blue-500"
+              placeholder="余った弁当"
+            />
+          </div>
+          <div class="mb-8">
+            <label for="" class="text-sm block">支払い金額</label>
+            <input
+              type="number"
+              name="payment"
+              class="placeholder-gray-500 placeholder-opacity-30 border-b w-full py-2 focus:outline-none focus:border-b-2 bocus:border-blue-500"
+              placeholder="支払い金額"
+            />
+          </div>
+          <button
+            class="bg-green-500 text-white font-semibold py-2 px-8 rounded-md focus:outline-none"
+          >
+            送信
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}
+</div>
